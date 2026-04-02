@@ -3,10 +3,12 @@ import type { LineObject, EraserObject } from '@/types'
 
 interface LineRendererProps {
   line: LineObject
+  draggable?: boolean
   onSelect?: (id: string) => void
+  onDragEnd?: (e: import('konva/lib/Node').KonvaEventObject<DragEvent>) => void
 }
 
-export function LineRenderer({ line, onSelect }: LineRendererProps) {
+export function LineRenderer({ line, draggable = false, onSelect, onDragEnd }: LineRendererProps) {
   return (
     <Line
       id={line.id}
@@ -27,8 +29,10 @@ export function LineRenderer({ line, onSelect }: LineRendererProps) {
       scaleX={line.scaleX}
       scaleY={line.scaleY}
       visible={line.visible}
+      draggable={draggable}
       onClick={() => onSelect?.(line.id)}
       onTap={() => onSelect?.(line.id)}
+      onDragEnd={onDragEnd}
       hitStrokeWidth={Math.max(line.strokeWidth, 20)}
     />
   )

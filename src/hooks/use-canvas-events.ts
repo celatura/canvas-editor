@@ -82,6 +82,21 @@ export function useCanvasEvents() {
             visible: true,
           })
           setIsDrawing(true)
+        } else {
+          // Clicked on a shape — select it immediately so drag works
+          const targetId = e.target.id()
+          if (targetId) {
+            const isMulti = e.evt.shiftKey
+            if (isMulti) {
+              if (selectedIds.includes(targetId)) {
+                setSelectedIds(selectedIds.filter((id) => id !== targetId))
+              } else {
+                setSelectedIds([...selectedIds, targetId])
+              }
+            } else if (!selectedIds.includes(targetId)) {
+              setSelectedIds([targetId])
+            }
+          }
         }
       }
     },

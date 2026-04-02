@@ -6,6 +6,7 @@ import type { ImageObject } from '@/types'
 interface ImageRendererProps {
   obj: ImageObject
   isSelected: boolean
+  draggable?: boolean
   onSelect: (id: string) => void
   onTransformEnd: (e: KonvaEventObject<Event>) => void
   onDragEnd: (e: KonvaEventObject<DragEvent>) => void
@@ -14,6 +15,7 @@ interface ImageRendererProps {
 export function ImageRenderer({
   obj,
   isSelected,
+  draggable = false,
   onSelect,
   onTransformEnd,
   onDragEnd,
@@ -41,7 +43,7 @@ export function ImageRenderer({
       scaleX={obj.scaleX}
       scaleY={obj.scaleY}
       visible={obj.visible}
-      draggable={isSelected}
+      draggable={draggable}
       onClick={() => onSelect(obj.id)}
       onTap={() => onSelect(obj.id)}
       onTransformEnd={onTransformEnd}

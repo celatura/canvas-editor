@@ -7,6 +7,7 @@ import type { TextObject } from '@/types'
 interface TextRendererProps {
   obj: TextObject
   isSelected: boolean
+  draggable?: boolean
   onSelect: (id: string) => void
   onTransformEnd: (e: KonvaEventObject<Event>) => void
   onDragEnd: (e: KonvaEventObject<DragEvent>) => void
@@ -16,6 +17,7 @@ interface TextRendererProps {
 export function TextRenderer({
   obj,
   isSelected,
+  draggable = false,
   onSelect,
   onTransformEnd,
   onDragEnd,
@@ -99,7 +101,7 @@ export function TextRenderer({
       scaleX={obj.scaleX}
       scaleY={obj.scaleY}
       visible={obj.visible && !isEditing}
-      draggable={isSelected}
+      draggable={draggable}
       onClick={() => onSelect(obj.id)}
       onTap={() => onSelect(obj.id)}
       onDblClick={handleDblClick}

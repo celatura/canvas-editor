@@ -44,6 +44,7 @@ export function Canvas({ stageRef }: CanvasProps) {
   if (!activeFile) return null
 
   const objects = activeFile.objects
+  const isDraggable = tool === 'select'
   const cursor =
     tool === 'draw'
       ? 'crosshair'
@@ -93,12 +94,14 @@ export function Canvas({ stageRef }: CanvasProps) {
                   <LineRenderer
                     key={obj.id}
                     line={obj}
+                    draggable={isDraggable}
                     onSelect={(id) =>
                       handleObjectClick(
                         { cancelBubble: false, evt: { shiftKey: false } } as never,
                         id,
                       )
                     }
+                    onDragEnd={handleDragEnd}
                   />
                 )
               case 'eraser':
@@ -109,6 +112,7 @@ export function Canvas({ stageRef }: CanvasProps) {
                     key={obj.id}
                     obj={obj}
                     isSelected={selectedIds.includes(obj.id)}
+                    draggable={isDraggable}
                     onSelect={(id) =>
                       handleObjectClick(
                         { cancelBubble: false, evt: { shiftKey: false } } as never,
@@ -126,6 +130,7 @@ export function Canvas({ stageRef }: CanvasProps) {
                     key={obj.id}
                     obj={obj}
                     isSelected={selectedIds.includes(obj.id)}
+                    draggable={isDraggable}
                     onSelect={(id) =>
                       handleObjectClick(
                         { cancelBubble: false, evt: { shiftKey: false } } as never,
